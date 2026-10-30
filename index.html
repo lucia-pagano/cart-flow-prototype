@@ -347,7 +347,7 @@ body.hot [data-hot]{outline:2px dashed #2f6bff;outline-offset:2px;animation:hp 1
 #side{width:250px}
 #ep{margin-top:18px;font-size:12px;color:#626364;line-height:1.45}
 #ep b{display:block;color:#161617;font-size:12px;margin-bottom:6px}
-#ep ol{margin:0;padding-left:16px}
+#ep ol,#ep ul{margin:0;padding-left:16px}
 #ep li{margin-bottom:5px}
 #ep p{margin:10px 0 0}
 .qtt{font-size:15px;font-weight:700;margin:0}
@@ -1531,9 +1531,12 @@ function toast(scr,msg,bottom){
  scr.tt=setTimeout(function(){t.remove();},3600);
 }
 function epText(){
- var vt=VERT[S.v];
- if(S.mode==='home')return '<b>Entry points to the cart</b><ol><li>Cart icon in the Home header</li><li>Orders tab &rarr; Open carts &rarr; View cart</li><li>Search tab (or a door) &rarr; add to cart &rarr; Go to cart</li></ol><p>From a cart entry point every cart is selected; untick what you do not want. The moment you add something, only that store&rsquo;s cart stays selected.</p>';
- return '<b>Entry points to the PDP</b><ol>'+vt.ep.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ol><p>'+vt.note+'</p><p>Cart icon in the header opens the cart with everything selected; adding an item leaves only its store selected.</p>';
+ return '<b>Behaviour</b><ul>'+
+  '<li>The PDP is a full page, not a modal. Users stay in the PDP and get feedback on what they just did.</li>'+
+  '<li>They can reach the cart from the PDP, and the vendor from an entry point in the PDP. For PDPs with a Buy Box, that vendor entry point is still to be defined.</li>'+
+  '<li>The cart entry point in the header opens the cart with everything selected. Adding an item leaves only its store selected.</li>'+
+  '<li>When you add something from a store, all the other carts are deselected unless you add them back.</li>'+
+  '<li>Checkout shows the full description of every cart.</li></ul>';
 }
 function goBase(t){st.innerHTML='';S.stack=[];push(t,{},true);}
 function setV(v){S.v=v;document.querySelectorAll('#seg button').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-v')===v);});$('#ep').innerHTML=epText();}
