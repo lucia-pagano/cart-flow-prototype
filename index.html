@@ -1460,12 +1460,12 @@ function homeHTML(){
 function ordersHTML(){
  var ong=function(t,sub,bg,fg){return '<div class="ong"><span class="ic" style="background:'+bg+'">'+ic('ti-motorbike',18,fg)+'</span><span class="tx"><b>'+t+'</b><span class="s">'+sub+'</span></span><button class="open">Open</button></div>';};
  var h=sbar()+'<div class="qsc"><div class="oh">Your orders</div><div class="otabs"><span class="on">Ongoing</span><span>Past</span></div>'+
-  '<div class="osec">Ongoing orders</div><div class="ogrp">'+ong('Ongoing order','Healthy Poke &middot; arriving in 12 min','#e1f5ee','#017963')+'</div><div class="osec">Open carts</div>';
- var cs=S.carts.filter(function(c){return c.items.length;});
- cs.forEach(function(c){var d=STORES[c.s],sub=0,n=0;c.items.forEach(function(i){sub+=i.p*i.q;n++;});
-  var its=c.items.slice(0,3).map(function(i){return '<span class="it">'+ic(i.i,0,i.c)+'</span>';}).join('')+(n>3?'<span class="it">+'+(n-3)+'</span>':'');
-  h+='<div class="ocard"><div class="hd"><span class="th" style="background:'+d.bg+'">'+ic('ti-building-store',20,d.fg)+'</span><div><div class="nm">'+c.s+'</div><div class="eta">Delivery in 25 min</div></div></div><div class="its">'+its+'</div><div class="sub">Subtotal <b>'+money(sub)+'</b></div><div class="bt"><button class="o" data-act="store" data-store="'+c.s+'">Add items</button><button class="f" data-act="cart" data-hot="1">View cart</button></div></div>';});
- if(!cs.length)h+='<div class="qempty" style="padding:30px">No open carts</div>';
+  '<div class="osec">Ongoing orders</div><div class="ogrp">'+ong('Ongoing order','Healthy Poke &middot; arriving in 12 min','#e1f5ee','#017963')+'</div><div class="osec">Cart</div>';
+ var n=totalItems(),sub=0,ns=0,all=[];
+ S.carts.forEach(function(c){if(c.items.length)ns++;c.items.forEach(function(i){sub+=i.p*i.q;all.push(i);});});
+ var prev=all.slice(0,4).map(function(i){return '<span class="it">'+ic(i.i,0,i.c)+'</span>';}).join('')+(all.length>4?'<span class="it">+'+(all.length-4)+'</span>':'');
+ if(n)h+='<div class="ocard"><div class="hd"><span class="th" style="background:#f2f2f3">'+ic('ti-shopping-cart',20)+'</span><div><div class="nm">Your cart</div><div class="eta">'+n+(n===1?' item':' items')+' from '+ns+(ns===1?' store':' stores')+'</div></div></div><div class="its">'+prev+'</div><div class="sub">Subtotal <b>'+money(sub)+'</b></div><div class="bt"><button class="f" data-act="cart" data-hot="1">View cart</button></div></div>';
+ else h+='<div class="qempty" style="padding:30px">Your cart is empty</div>';
  return h+'<div style="height:16px"></div></div>'+tabs('orders');
 }
 
